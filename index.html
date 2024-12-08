@@ -10,29 +10,39 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#4F46E5',
-                        secondary: '#9333EA',
-                        accent: '#14B8A6',
+                        primary: '#1E293B', /* Slate-800 */
+                        secondary: '#0EA5E9', /* Sky-500 */
+                        accent: '#FACC15', /* Amber-400 */
+                        darkBg: '#1E293B', /* Dark mode background */
+                        lightBg: '#F8FAFC', /* Light mode background */
+                        darkText: '#F8FAFC', /* Light text in dark mode */
+                        lightText: '#1E293B', /* Dark text in light mode */
                     },
                 },
             },
         };
     </script>
 </head>
-<body class="bg-gray-100 text-gray-800 transition duration-300">
-    <div id="app" class="flex flex-col items-center justify-center h-screen space-y-6 text-center">
-        <!-- Main Content -->
+<body class="bg-lightBg text-lightText dark:bg-darkBg dark:text-darkText transition duration-300">
+    <!-- Toggle Dark Mode -->
+    <button id="toggle-theme" 
+            class="absolute top-4 right-4 px-3 py-1 text-sm font-medium bg-accent text-black rounded shadow-md">
+        Dark Mode
+    </button>
+
+    <!-- Main Content -->
+    <div class="flex flex-col items-center justify-center h-screen space-y-6 text-center">
         <div>
             <h1 class="text-4xl font-bold text-primary dark:text-accent">
                 Website Sedang Maintenance
             </h1>
-            <p class="mt-4 text-gray-600 dark:text-gray-300">
+            <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">
                 Kami sedang melakukan pembaruan untuk memberikan pengalaman yang lebih baik. Mohon tunggu ya!
             </p>
         </div>
 
         <!-- Icons Section -->
-        <div class="flex space-x-6 text-secondary dark:text-primary animate-bounce">
+        <div class="flex space-x-6 text-secondary dark:text-accent animate-bounce">
             <i class="fas fa-cogs text-4xl"></i>
             <i class="fas fa-tools text-4xl"></i>
             <i class="fas fa-sync-alt text-4xl"></i>
@@ -43,21 +53,20 @@
             <p class="text-lg text-gray-700 dark:text-gray-400">Maintenance selesai dalam:</p>
             <p id="countdown" class="text-2xl font-semibold text-gray-900 dark:text-white"></p>
         </div>
-
-        <!-- Dark Mode Toggle -->
-        <button id="toggle-theme" class="px-4 py-2 font-medium text-white bg-primary rounded-lg dark:bg-secondary">
-            Toggle Dark Mode
-        </button>
     </div>
 
     <!-- FontAwesome Icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <!-- JavaScript -->
     <script>
         // Dark Mode Toggle
         const toggleTheme = document.getElementById('toggle-theme');
         toggleTheme.addEventListener('click', () => {
-            document.body.classList.toggle('dark');
+            document.documentElement.classList.toggle('dark');
+            toggleTheme.textContent = document.documentElement.classList.contains('dark')
+                ? 'Light Mode'
+                : 'Dark Mode';
         });
 
         // Countdown Timer
