@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Mode</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#9333EA',
+                        accent: '#14B8A6',
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800 transition duration-300">
+    <div id="app" class="flex flex-col items-center justify-center h-screen space-y-6 text-center">
+        <!-- Main Content -->
+        <div>
+            <h1 class="text-4xl font-bold text-primary dark:text-accent">
+                Website Sedang Maintenance
+            </h1>
+            <p class="mt-4 text-gray-600 dark:text-gray-300">
+                Kami sedang melakukan pembaruan untuk memberikan pengalaman yang lebih baik. Mohon tunggu ya!
+            </p>
+        </div>
+
+        <!-- Icons Section -->
+        <div class="flex space-x-6 text-secondary dark:text-primary animate-bounce">
+            <i class="fas fa-cogs text-4xl"></i>
+            <i class="fas fa-tools text-4xl"></i>
+            <i class="fas fa-sync-alt text-4xl"></i>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div>
+            <p class="text-lg text-gray-700 dark:text-gray-400">Maintenance selesai dalam:</p>
+            <p id="countdown" class="text-2xl font-semibold text-gray-900 dark:text-white"></p>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <button id="toggle-theme" class="px-4 py-2 font-medium text-white bg-primary rounded-lg dark:bg-secondary">
+            Toggle Dark Mode
+        </button>
+    </div>
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- JavaScript -->
+    <script>
+        // Dark Mode Toggle
+        const toggleTheme = document.getElementById('toggle-theme');
+        toggleTheme.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+        });
+
+        // Countdown Timer
+        const countdownElement = document.getElementById('countdown');
+        const targetDate = new Date().getTime() + 48 * 60 * 60 * 1000; // 2 days from now
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance <= 0) {
+                countdownElement.textContent = 'Maintenance selesai!';
+                clearInterval(interval);
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        const interval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+    </script>
+</body>
+</html>
