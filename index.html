@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Mode</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class', // Aktifkan dark mode dengan class
             theme: {
                 extend: {
                     colors: {
                         primary: '#1E293B', /* Slate-800 */
                         secondary: '#0EA5E9', /* Sky-500 */
                         accent: '#FACC15', /* Amber-400 */
-                        darkBg: '#1E293B', /* Dark mode background */
-                        lightBg: '#F8FAFC', /* Light mode background */
-                        darkText: '#F8FAFC', /* Light text in dark mode */
-                        lightText: '#1E293B', /* Dark text in light mode */
+                        darkBg: '#1E293B', /* Background dark mode */
+                        lightBg: '#F8FAFC', /* Background light mode */
                     },
                 },
             },
@@ -24,13 +24,13 @@
     </script>
 </head>
 <body class="bg-lightBg text-lightText dark:bg-darkBg dark:text-darkText transition duration-300">
-    <!-- Toggle Dark Mode -->
+    <!-- Tombol Toggle Dark Mode -->
     <button id="toggle-theme" 
             class="absolute top-4 right-4 px-3 py-1 text-sm font-medium bg-accent text-black rounded shadow-md">
-        Dark Mode
+        🌑 Mode
     </button>
 
-    <!-- Main Content -->
+    <!-- Konten Utama -->
     <div class="flex flex-col items-center justify-center h-screen space-y-6 text-center">
         <div>
             <h1 class="text-4xl font-bold text-primary dark:text-accent">
@@ -41,7 +41,7 @@
             </p>
         </div>
 
-        <!-- Icons Section -->
+        <!-- Ikon -->
         <div class="flex space-x-6 text-secondary dark:text-accent animate-bounce">
             <i class="fas fa-cogs text-4xl"></i>
             <i class="fas fa-tools text-4xl"></i>
@@ -60,13 +60,18 @@
 
     <!-- JavaScript -->
     <script>
-        // Dark Mode Toggle
+        // Tombol Dark Mode
         const toggleTheme = document.getElementById('toggle-theme');
+        const htmlElement = document.documentElement;
+
         toggleTheme.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            toggleTheme.textContent = document.documentElement.classList.contains('dark')
-                ? 'Light Mode'
-                : 'Dark Mode';
+            // Toggle class "dark" pada elemen <html>
+            htmlElement.classList.toggle('dark');
+
+            // Ubah teks tombol berdasarkan mode saat ini
+            toggleTheme.textContent = htmlElement.classList.contains('dark') 
+                ? '🌑 Mode' 
+                : '☀️ Mode';
         });
 
         // Countdown Timer
@@ -85,14 +90,14 @@
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const minutes = Math.floor((distance % (1000 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
 
         const interval = setInterval(updateCountdown, 1000);
-        updateCountdown(); // Initial call
+        updateCountdown(); // Panggilan awal
     </script>
 </body>
 </html>
